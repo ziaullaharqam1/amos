@@ -1,0 +1,67 @@
+spring:
+  application:
+    name: ams
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/amos}
+    username: ${DATASOURCE_USERNAME:amos}
+    password: ${DATASOURCE_PASSWORD:amos}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: ams-notification-service
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: com.amos.ams.kafka
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:ziaullah.arqam1@gmail.com}
+    password: ${MAIL_PASSWORD:ahbl vdfz bmde mfhb}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+      mail.smtp.connectiontimeout: 10000
+      mail.smtp.timeout: 10000
+      mail.smtp.writetimeout: 10000
+
+server:
+  port: ${SERVER_PORT:8080}
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:amos-dev-secret-change-in-production-use-256-bit-key!!}
+    expiration-ms: 86400000
+  kafka:
+    topics:
+      notifications: ams.notifications
+      audit: ams.audit
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://localhost:8088,http://127.0.0.1:8088}
+  grok:
+    # free = built-in local model (no xAI credits). xai = Grok API (needs billing).
+    provider: ${GROK_PROVIDER:free}
+    api-key: ${GROK_API_KEY:}
+    model: ${GROK_MODEL:local-free}
+    base-url: ${GROK_BASE_URL:https://api.x.ai/v1}
+    max-steps: 8
+
+logging:
+  level:
+    com.amos.ams: INFO

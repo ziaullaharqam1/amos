@@ -1,0 +1,16 @@
+Hangar ops shouldn’t live in spreadsheets and WhatsApp threads.
+
+I built AMOS — an Aircraft Maintenance System for the full work-order loop:
+
+→ Open a defect / work order
+→ Assign by role (tech, engineer, supervisor, QA)
+→ Move status with audit
+→ Talk to a hangar workflow agent in plain language
+
+Stack: Spring Boot · React · PostgreSQL · JWT RBAC · Flyway · AWS EC2 (HTTPS)
+
+It’s live. Demo roles from admin → technician → QA, same password flow you’d expect in a real hangar board.
+
+If you work in MRO, CAMO, or airline engineering — what’s the #1 pain in your work-order handoff today?
+
+#Aviation #MRO #AircraftMaintenance #SoftwareEngineering #SpringBoot #React #AWS #AIinAviation

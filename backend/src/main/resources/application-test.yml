@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:amos;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  flyway:
+    enabled: true
+  kafka:
+    bootstrap-servers: localhost:9092
+  task:
+    scheduling:
+      enabled: false
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration
+      - org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration
+
+app:
+  jwt:
+    secret: test-secret-key-must-be-at-least-256-bits-long-for-hs256
+    expiration-ms: 3600000
+  grok:
+    provider: free
+    api-key:
+    model: local-free
